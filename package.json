@@ -1,0 +1,62 @@
+{
+	"name": "@tsofindavid/bump",
+	"version": "0.1.0",
+	"description": "Bump package.json version, commit and tag — `npm version` for Bun, zero dependencies",
+	"license": "MIT",
+	"author": "tsofindavid",
+	"keywords": [
+		"bun",
+		"version",
+		"semver",
+		"bump",
+		"release",
+		"npm-version"
+	],
+	"type": "module",
+	"main": "./index.ts",
+	"module": "./index.ts",
+	"types": "./index.ts",
+	"exports": {
+		".": "./index.ts",
+		"./semver": "./src/domain/semver.ts"
+	},
+	"bin": {
+		"bump": "./src/cli/bin.ts"
+	},
+	"files": [
+		"index.ts",
+		"src",
+		"!src/**/*.test.ts"
+	],
+	"sideEffects": false,
+	"engines": {
+		"bun": ">=1.1.0"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/tsofindavid/bump.git"
+	},
+	"bugs": {
+		"url": "https://github.com/tsofindavid/bump/issues"
+	},
+	"homepage": "https://github.com/tsofindavid/bump#readme",
+	"scripts": {
+		"build": "bun build --compile --minify --sourcemap src/cli/bin.ts --outfile dist/bump",
+		"test": "bun test",
+		"lint": "biome check .",
+		"lint:fix": "biome check --write .",
+		"typecheck": "tsc --noEmit",
+		"ci": "biome ci . && tsc --noEmit && bun test && bun run build",
+		"prepublishOnly": "bun run ci",
+		"bump": "bun src/cli/bin.ts",
+		"version:bump": "bun src/cli/bin.ts --no-git-tag-version"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "2.5.9",
+		"@types/bun": "latest",
+		"typescript": "^5"
+	},
+	"publishConfig": {
+		"access": "public"
+	}
+}
